@@ -37,11 +37,14 @@ func GetUsersId(url string) []string{
 	})
 	return userids
 }
-
+//get user info ,the param url is user home url ,eg https://www.jianshu.com/u/dbfdce352c0d
 func GetUserInfo(url string) UserInfo{
 	doc, err := goquery.NewDocument(url)
 	if err != nil{
 		log.Println("ERROR","get userInfo failed.",err)
 	}
-	
+	// compile success ,not other
+	if doc != nil{
+
+	}
 }
