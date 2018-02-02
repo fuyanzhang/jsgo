@@ -23,7 +23,7 @@ type AbsTitle struct {
 	Title      string
 }
 
-func GetUsersId(url string) *[]string{
+func GetUsersId(url string) []string{
 	doc, err := goquery.NewDocument(url)
 	if err != nil {
 		log.Println("ERROR","get uid failed.",err)
@@ -35,7 +35,7 @@ func GetUsersId(url string) *[]string{
 		userids = append(userids,uid)
 
 	})
-	return &userids
+	return userids
 }
 //get user info ,the param url is user home url ,eg https://www.jianshu.com/u/dbfdce352c0d
 func GetUserInfo(url string) *UserInfo{
