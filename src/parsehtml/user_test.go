@@ -34,11 +34,12 @@ func TestGetUsersId2(t *testing.T) {
 	for i:=1;i<=100;i++  {
 		allUIds = append(allUIds,<-ch)
 	}
+	close(ch)
 	fmt.Println(len(allUIds))
 	fmt.Println(*allUIds[99])
 
 }
-func getUserIdSync(url string,ch chan  *([]string)){
-	uids := GetUsersId(url)
-	ch <- &uids
-}
+//func getUserIdSync(url string,ch chan  *([]string)){
+//	uids := GetUsersId(url)
+//	ch <- &uids
+//}
