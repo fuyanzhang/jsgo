@@ -12,7 +12,7 @@ func TestGetUsersId(t *testing.T) {
 }
 
 func TestGetUserInfo(t *testing.T) {
-	userInfo := GetUserInfo("https://www.jianshu.com/u/dbfdce352c0d")
+	userInfo,_ := GetUserInfo("https://www.jianshu.com/u/dbfdce352c0d")
 	fmt.Println(userInfo.ArticalNum)
 	fmt.Println(userInfo.UserFollower)
 	fmt.Println(userInfo.UserFollowing)

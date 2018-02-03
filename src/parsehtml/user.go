@@ -3,6 +3,7 @@ package parsehtml
 import (
 	"github.com/PuerkitoBio/goquery"
 	"log"
+	"strconv"
 )
 
 /**
@@ -11,9 +12,9 @@ type UserInfo struct {
 	UserId string  /** 用户IDeg."dbfdce352c0d"*/
 	NickName string /** 用户昵称 eg." 遛遛心情的溜妈"*/
 	UserUrl string  /** 用户主页url eg "https://www.jianshu.com/u/dbfdce352c0d"*/
-	UserFollowing string  /**关注数*/
-	UserFollower  string /**被关注数*/
-	ArticalNum string    /**文章数*/
+	UserFollowing int  /**关注数*/
+	UserFollower  int /**被关注数*/
+	ArticalNum int    /**文章数*/
 	AritcalList []AbsTitle
 	Desc string  /**用户描述*/
 }
@@ -38,10 +39,11 @@ func GetUsersId(url string) []string{
 	return userids
 }
 //get user info ,the param url is user home url ,eg https://www.jianshu.com/u/dbfdce352c0d
-func GetUserInfo(url string) *UserInfo{
+func GetUserInfo(url string) (*UserInfo,error){
 	doc, err := goquery.NewDocument(url)
 	if err != nil{
 		log.Println("ERROR","get userInfo failed.",err)
+		return nil,err
 	}
 	userInfo := new(UserInfo)
 	nickName :=doc.Find(".main-top .title").Find("a").Text()
@@ -49,12 +51,16 @@ func GetUserInfo(url string) *UserInfo{
 	userInfo.UserUrl = url
 	doc.Find(".main-top .info li").Each(func(i int, selection *goquery.Selection) {
 		temp := selection.Find("p").Text()
+		inttmp ,err:= strconv.Atoi(temp)
+		if err != nil {
+			inttmp = 0
+		}
 		switch i {
-		case 0: userInfo.UserFollowing = temp
-		case 1: userInfo.UserFollower = temp
-		case 2: userInfo.ArticalNum = temp
+		case 0: userInfo.UserFollowing = inttmp
+		case 1: userInfo.UserFollower = inttmp
+		case 2: userInfo.ArticalNum = inttmp
 		}
 	})
-	return userInfo
+	return userInfo,nil
 
 }

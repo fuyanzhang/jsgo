@@ -12,7 +12,7 @@ func ParseDetail(url string) string{
 		fmt.Println("open failed.%v",err)
 	}
 	sele := doc.Find(".show-content")
-	fmt.Println(sele.Text())
+	//fmt.Println(sele.Text())
 	//analysis.Analysis(sele.Text())
 	return sele.Text()
 }
